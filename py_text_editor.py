@@ -146,12 +146,22 @@ def cut_text(e):
 
 
 # Copy Text
-
-	# check to see if we used keyboard shortcuts
-
+def copy_text(e):
+	global selected
+	# Check to see if keyboard shortcut used
+	if e:
+		# Clear the clipboard then append
+		selected = root.clipboard_get()
+	
+	# Check to see if anything is selected
+	if my_text.selection_get():
 		# Grab selected text from text box
+		selected = my_text.selection_get()
 
 		# Clear the clipboard then append
+		root.clipboard_clear()
+		root.clipboard_append(selected)
+
 
 # Paste Text
 

@@ -14,10 +14,15 @@ root.geometry("1024x768")
 
 
 # Create New File Function
-
+def new_file():
 	# Delete previous text
-
+	my_text.delete("1.0", END)
 	# Update status bars
+	root.title("New File - New file")
+	status_bar.config(text="New File        ")
+	# Make global
+	global open_status_name
+	open_status_name = False
 
 # Open Files
 
@@ -207,7 +212,7 @@ root.config(menu=my_menu)
 # Add File Menu
 file_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="New")
+file_menu.add_command(label="New", command=new_file)
 file_menu.add_command(label="Open")
 file_menu.add_command(label="Save")
 file_menu.add_command(label="Save As")

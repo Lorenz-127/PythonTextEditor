@@ -72,5 +72,9 @@ Run the script using Python:
 
 ```
 python text_edit.py
-
+```
 This project serves as both a practical tool for everyday use and a learning experience in Python GUI development and text processing.
+
+## License
+
+[MIT](https://github.com/Lorenz-127/PytonTextEditor/blob/main/LICENSE)

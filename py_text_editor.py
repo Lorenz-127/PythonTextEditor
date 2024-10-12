@@ -164,8 +164,20 @@ def copy_text(e):
 
 
 # Paste Text
+def paste_text(e):
+	global selected
+	# Check to see if keyboard shortcut used
+	if e:
+		# Get text from clipboard
+		selected = root.clipboard_get()
+	else:
+		# Check to see if anything is selected
+		if selected:
+			# Get position of cursor
+			position = my_text.index(INSERT)
+			# Add selected text to text box
+			my_text.insert(position, selected)
 
-	#Check to see if keyboard shortcut used
 
 
 # Bold Text

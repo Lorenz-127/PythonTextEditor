@@ -5,7 +5,7 @@ A feature-rich text editor built with Python and Tkinter, inspired by Notepad++.
 ## Features
 
 - [ ] Basic text editing capabilities
-- [ ] File operations (New, Open, Save, Save As)
+- [ ] File operations (New, Open, Save, Save As, Exit)
 - [ ] Edit functions (Cut, Copy, Paste, Undo, Redo, Select All, Clear)
 - [ ] Text formatting (Bold, Italics)
 - [ ] Color customization (Text color, Background color)

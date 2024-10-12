@@ -317,9 +317,9 @@ file_menu.add_command(label="Exit", command=root.quit)
 # Add Edit Menu
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
-edit_menu.add_command(label="Cut")
-edit_menu.add_command(label="Copy")
-edit_menu.add_command(label="Paste")
+edit_menu.add_command(label="Cut", command=cut_text)
+edit_menu.add_command(label="Copy", command=copy_text)
+edit_menu.add_command(label="Paste", command=paste_text)
 edit_menu.add_command(label="Undo")
 edit_menu.add_command(label="Redo")
 edit_menu.add_command(label="Select All")
@@ -340,8 +340,8 @@ status_bar.pack(fill=X, side=BOTTOM, ipady=5)
 
 # Edit Bindings
 root.bind('<Control-Key-x>', cut_text)
-# root.bind('<Control-Key-c>', copy_text)
-# root.bind('<Control-Key-v>', paste_text)
+root.bind('<Control-Key-c>', copy_text)
+root.bind('<Control-Key-v>', paste_text)
 # # Select Binding
 # root.bind('<Control-A>', select_all)
 # root.bind('<Control-a>', select_all)

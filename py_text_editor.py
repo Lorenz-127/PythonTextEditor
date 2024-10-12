@@ -21,7 +21,7 @@ def new_file():
 	my_text.delete("1.0", END)
 
 	# Update status bars
-	root.title("New File - Test Editor")
+	root.title("New File - Text Editor")
 	status_bar.config(text="New File        ")
 
 	# Reset open_status_name
@@ -54,19 +54,19 @@ def open_file():
 		global open_status_name
 		open_status_name = text_file
 
-	# Update Status bars
-	name = text_file
-	status_bar.config(text=f'{name}        ')
-	name = name.replace("~/Documents/", "")
-	root.title(f'{name} - Text Editor')
+		# Update Status bars
+		name = text_file
+		status_bar.config(text=f'{name}        ')
+		name = name.replace("~/Documents/", "")
+		root.title(f'{name} - Text Editor')
 
-	# Open the file
-	text_file = open(text_file, 'r')
-	stuff = text_file.read()
-	# Add file to textbox
-	my_text.insert(END, stuff)
-	# Close the opened file
-	text_file.close()
+		# Open the file
+		text_file = open(text_file, 'r')
+		stuff = text_file.read()
+		# Add file to textbox
+		my_text.insert(END, stuff)
+		# Close the opened file
+		text_file.close()
 
 
 # Save As File
@@ -128,7 +128,7 @@ def cut_text(e):
 	global selected
 	# Check to see if keyboard shortcut used
 	if e:
-		# Grab selected text from text box
+		# Grab selected text from clipboard
 		selected = root.clipboard_get()
 	else:
 		# Check to see if anything is selected

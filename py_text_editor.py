@@ -101,12 +101,27 @@ def save_as_file():
 
 
 # Save File
-
+def save_file():
+	global open_status_name
+	# Check to see if there is a file name
+	if open_status_name:
 		# Save the file
+		text_file = open(open_status_name, 'w')
+		text_file.write(my_text.get(1.0, END))
 
 		# Close the file
+		text_file.close()
 
 		# Put status update or popup code
+		status_bar.config(text=f'Saved: {open_status_name}        ')
+		name = open_status_name
+		name = name.replace("~/Documents/", "")
+		root.title(f'{name} - Text Editor')
+
+	# if there is no file name, use save_as_file
+	else:
+		save_as_file()
+
 
 # Cut Text
 
@@ -261,7 +276,7 @@ file_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New", command=new_file)
 file_menu.add_command(label="Open", command=open_file)
-file_menu.add_command(label="Save")
+file_menu.add_command(label="Save", command=save_file)
 file_menu.add_command(label="Save As", command=save_as_file)
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=root.quit)

@@ -291,8 +291,12 @@ status_bar.pack(fill=X, side=BOTTOM, ipady=5)
 
 
 # Edit Bindings
-
+root.bind('<Control-Key-x>', cut_text)
+root.bind('<Control-Key-c>', copy_text)
+root.bind('<Control-Key-v>', paste_text)
 # Select Binding
+root.bind('<Control-A>', select_all)
+root.bind('<Control-a>', select_all)
 
 
 

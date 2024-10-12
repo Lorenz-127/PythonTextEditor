@@ -49,7 +49,7 @@ The toolbar provides quick access to:
 ## Notes
 
 - The print functionality is currently set up for Windows systems.
-- The icon path is set to 'c:/gui/codemy.ico'. You may need to adjust this path or provide your own icon.
+- The icon path is set to '../assets/logo.ico'. You may need to adjust this path or provide your own icon.
 
 ## Requirements
 
@@ -64,17 +64,35 @@ The toolbar provides quick access to:
    ```
    pip install pywin32
    ```
-3. Clone this repository or download the source code.
+3. Clone this repository:
+
+   - To clone the repository (if you have Git installed):
+     ```
+     git clone https://github.com/lorenz-127/PytonTextEditor.git
+     cd PytonTextEditor
+     ```
 
 ## Usage
 
 Run the script using Python:
 
 ```
-python text_edit.py
+python py_text_editor.py
 ```
 This project serves as both a practical tool for everyday use and a learning experience in Python GUI development and text processing.
 
+## Contributing
+
+Contributions, issues, and feature requests are welcome. Feel free to check [issues page](https://github.com/Lorenz-127/PythonTextEditor/issues) if you want to contribute.
+
+### How to Fork
+
+To fork the repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, [lorenz-127/PythonTextEditor](https://github.com/Lorenz-127/PythonTextEditor)
+3. Click the Fork button in the top right corner.
+
 ## License
 
-[MIT](https://github.com/Lorenz-127/PytonTextEditor/blob/main/LICENSE)
+[MIT](https://github.com/Lorenz-127/PythonTextEditor/blob/main/LICENSE)

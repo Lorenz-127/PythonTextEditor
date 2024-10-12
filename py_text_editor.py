@@ -5,7 +5,7 @@ from tkinter import font
 import os
 
 
-# root 
+# Initialize the main application window
 root = Tk()
 root.title("Lorry's Text Editor")
 root.geometry("1024x768")
@@ -16,7 +16,7 @@ global open_status_name
 open_status_name = False
 
 # New File
-def new_file():
+def new_file(e=None):
 	# Delete previous text
 	my_text.delete("1.0", END)
 
@@ -122,63 +122,65 @@ def save_file():
 	else:
 		save_as_file()
 
+# Key bindings
+def key_bindings(root, text_widget):
+    # Define key bindings and their corresponding commands
+    key_bindings = {
+        '<Control-n>': new_file,
+        '<Control-o>': open_file,
+        '<Control-s>': save_file,
+        '<Control-S>': save_as_file,
+        '<Control-p>': print_file,
+        '<Control-q>': root.quit,
+        '<Control-x>': lambda event: cut_text(event, text_widget),
+        '<Control-c>': lambda event: copy_text(event, text_widget),
+        '<Control-v>': lambda event: paste_text(event, text_widget),
+        '<Control-z>': lambda event: text_widget.edit_undo(),
+        '<Control-y>': lambda event: text_widget.edit_redo(),
+        '<Control-a>': lambda event: select_all(event, text_widget),
+    }
+
+	# Bind keys to commands
+    for key, command in key_bindings.items():
+        root.bind(key, command)
 
 # Cut Text
-def cut_text(e):
-	global selected
-	# Check to see if keyboard shortcut used
-	if e:
-		# Grab selected text from clipboard
-		selected = root.clipboard_get()
-	else:
-		# Check to see if anything is selected
-		if my_text.selection_get():
-
-			# Grab selected text from text box
-			selected = my_text.selection_get()
-
-			# Delete Selected Text from text box
-			my_text.delete("sel.first", "sel.last")
-
-			# Clear the clipboard then append
-			root.clipboard_clear()
-			root.clipboard_append(selected)
+def cut_text(event, text_widget):
+    # Cut selected text to clipboard
+    if text_widget.selection_get():
+        selected = text_widget.selection_get()
+        text_widget.delete("sel.first", "sel.last")
+        text_widget.clipboard_clear()
+        text_widget.clipboard_append(selected)
+    return "break"
 
 
 # Copy Text
-def copy_text(e):
-	global selected
-	# Check to see if keyboard shortcut used
-	if e:
-		# Clear the clipboard then append
-		selected = root.clipboard_get()
-	
-	# Check to see if anything is selected
-	if my_text.selection_get():
-		# Grab selected text from text box
-		selected = my_text.selection_get()
-
-		# Clear the clipboard then append
-		root.clipboard_clear()
-		root.clipboard_append(selected)
+def copy_text(event, text_widget):
+    # Copy selected text to clipboard
+    if text_widget.selection_get():
+        selected = text_widget.selection_get()
+        text_widget.clipboard_clear()
+        text_widget.clipboard_append(selected)
+    return "break"
 
 
 # Paste Text
-def paste_text(e):
-	global selected
-	# Check to see if keyboard shortcut used
-	if e:
-		# Get text from clipboard
-		selected = root.clipboard_get()
-	else:
-		# Check to see if anything is selected
-		if selected:
-			# Get position of cursor
-			position = my_text.index(INSERT)
-			# Add selected text to text box
-			my_text.insert(position, selected)
+def paste_text(event, text_widget):
+    # Paste text from clipboard
+    try:
+        selected = text_widget.selection_get(selection='CLIPBOARD')
+        text_widget.insert(INSERT, selected)
+    except TclError:
+        pass
+    return "break"
 
 
+# Select all text
+def select_all(event, text_widget):
+    # Select all text in the text widget
+    text_widget.tag_add('sel', '1.0', 'end')
+    return "break"
 
 # Bold Text
 
@@ -243,16 +245,6 @@ def paste_text(e):
 		# Print the file
 
 
-# Select all Text
-def select_all(e=None):
-	# Add sel tag to select all text
-	my_text.tag_add('sel', '1.0', 'end')
-
-# Clear All Text
-def clear_all():
-	# Delete all text
-	my_text.delete(1.0, END)
-
 # Turn on Night Mode
 
 	# toolbar buttons
@@ -266,7 +258,6 @@ def clear_all():
 	# toolbar buttons
 
 	# file menu colors
-
 
 
 
@@ -314,18 +305,22 @@ file_menu.add_command(label="Open", command=open_file)
 file_menu.add_command(label="Save", command=save_file)
 file_menu.add_command(label="Save As", command=save_as_file)
 file_menu.add_separator()
+file_menu.add_command(label="Print", command=print_file)
+file_menu.add_separator()
 file_menu.add_command(label="Exit", command=root.quit)
 
 # Add Edit Menu
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
-edit_menu.add_command(label="Cut", command=cut_text)
-edit_menu.add_command(label="Copy", command=copy_text)
-edit_menu.add_command(label="Paste", command=paste_text)
+edit_menu.add_command(label="Cut")
+edit_menu.add_command(label="Copy")
+edit_menu.add_command(label="Paste")
+edit_menu.add_separator()
 edit_menu.add_command(label="Undo")
 edit_menu.add_command(label="Redo")
+edit_menu.add_separator()
 edit_menu.add_command(label="Select All", command=select_all)
-edit_menu.add_command(label="Clear")
+edit_menu.add_command(label="Clear", command=clear_all)
 
 
 # Add Color Menu
@@ -333,7 +328,8 @@ edit_menu.add_command(label="Clear")
 
 # Add Options Menu
 
-
+# Configure our Scrollbar
+text_scroll.config(command=my_text.yview)
 
 # Add Status Bar To Bottom Of App
 status_bar = Label(root, text='Ready        ', anchor=E)
@@ -355,10 +351,15 @@ root.bind('<Control-a>', select_all)
 
 # Italics Button
 
-
 # Undo/Redo Buttons
 
-
 # Text Color
+
+# Add Status Bar To Bottom Of App
+status_bar = Label(root, text='Ready        ', anchor=E)
+status_bar.pack(fill=X, side=BOTTOM, ipady=5)
+
+# Set up key bindings
+key_bindings(root, my_text)
 
 root.mainloop()

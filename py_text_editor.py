@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import font
+import os
 
 
 # root 
@@ -11,16 +12,19 @@ root.geometry("1024x768")
 
 
 # Set variable for open file name
+global open_status_name
+open_status_name = False
 
-
-# Create New File Function
+# New File
 def new_file():
 	# Delete previous text
 	my_text.delete("1.0", END)
+
 	# Update status bars
-	root.title("New File - New file")
+	root.title("New File - Test Editor")
 	status_bar.config(text="New File        ")
-	# Make global
+
+	# Reset open_status_name
 	global open_status_name
 	open_status_name = False
 
@@ -234,7 +238,7 @@ root.config(menu=my_menu)
 file_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New", command=new_file)
-file_menu.add_command(label="Open")
+file_menu.add_command(label="Open", command=open_file)
 file_menu.add_command(label="Save")
 file_menu.add_command(label="Save As")
 file_menu.add_separator()

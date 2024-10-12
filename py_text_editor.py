@@ -25,23 +25,44 @@ def new_file():
 	open_status_name = False
 
 # Open Files
-
+def open_file():
 	# Delete previous text
-
+	my_text.delete("1.0", END)
 
 	# Grab Filename
+	text_file = filedialog.askopenfilename(
+		initialdir=os.path.expanduser("~/Documents"), 
+		title="Open File", 
+		filetypes=(
+			("Text Files", "*.txt"),
+			("HTML Files", "*.html"),
+			("CSS Files", "*.css"),
+			("JS Files", "*.js"),
+			("Python Files", "*.py"),
+			("GDScript Files", "*.gd"),
+			("All Files", "*.*")
+			)
+		)
 
 	# Check to see if there is a file name
-
+	if text_file:
 		# Make filename global so we can access it later
+		global open_status_name
+		open_status_name = text_file
 
 	# Update Status bars
+	name = text_file
+	status_bar.config(text=f'{name}        ')
+	name = name.replace("~/Documents/", "")
+	root.title(f'{name} - Text Editor')
 
 	# Open the file
-
+	text_file = open(text_file, 'r')
+	stuff = text_file.read()
 	# Add file to textbox
-
+	my_text.insert(END, stuff)
 	# Close the opened file
+	text_file.close()
 
 
 # Save As File

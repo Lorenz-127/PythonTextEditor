@@ -244,12 +244,14 @@ def paste_text(e):
 
 
 # Select all Text
-
+def select_all(e=None):
 	# Add sel tag to select all text
-
+	my_text.tag_add('sel', '1.0', 'end')
 
 # Clear All Text
-
+def clear_all():
+	# Delete all text
+	my_text.delete(1.0, END)
 
 # Turn on Night Mode
 
@@ -322,7 +324,7 @@ edit_menu.add_command(label="Copy", command=copy_text)
 edit_menu.add_command(label="Paste", command=paste_text)
 edit_menu.add_command(label="Undo")
 edit_menu.add_command(label="Redo")
-edit_menu.add_command(label="Select All")
+edit_menu.add_command(label="Select All", command=select_all)
 edit_menu.add_command(label="Clear")
 
 
@@ -342,14 +344,10 @@ status_bar.pack(fill=X, side=BOTTOM, ipady=5)
 root.bind('<Control-Key-x>', cut_text)
 root.bind('<Control-Key-c>', copy_text)
 root.bind('<Control-Key-v>', paste_text)
-# # Select Binding
-# root.bind('<Control-A>', select_all)
-# root.bind('<Control-a>', select_all)
+# Select Binding
+root.bind('<Control-A>', select_all)
+root.bind('<Control-a>', select_all)
 
-
-
-#fee = "John Elder"
-#my_label = Label(root, text=fee[:-1]).pack()
 
 # Create Buttons
 

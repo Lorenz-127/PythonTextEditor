@@ -124,14 +124,25 @@ def save_file():
 
 
 # Cut Text
-
+def cut_text(e):
+	global selected
 	# Check to see if keyboard shortcut used
+	if e:
+		# Grab selected text from text box
+		selected = root.clipboard_get()
+	else:
+		# Check to see if anything is selected
+		if my_text.selection_get():
 
 			# Grab selected text from text box
+			selected = my_text.selection_get()
 
 			# Delete Selected Text from text box
+			my_text.delete("sel.first", "sel.last")
 
 			# Clear the clipboard then append
+			root.clipboard_clear()
+			root.clipboard_append(selected)
 
 
 # Copy Text
@@ -307,11 +318,11 @@ status_bar.pack(fill=X, side=BOTTOM, ipady=5)
 
 # Edit Bindings
 root.bind('<Control-Key-x>', cut_text)
-root.bind('<Control-Key-c>', copy_text)
-root.bind('<Control-Key-v>', paste_text)
-# Select Binding
-root.bind('<Control-A>', select_all)
-root.bind('<Control-a>', select_all)
+# root.bind('<Control-Key-c>', copy_text)
+# root.bind('<Control-Key-v>', paste_text)
+# # Select Binding
+# root.bind('<Control-A>', select_all)
+# root.bind('<Control-a>', select_all)
 
 
 
